@@ -1,3 +1,5 @@
+package introductory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,17 +8,18 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
-public class CoinPiles {
+public class TwoKnights {
     public static void main(String[] args) throws IOException {
         FastIO io = new FastIO(System.in, System.out);
+        long n = io.nextInt();
 
-        int t = io.nextInt();
-
-        while (t-- > 0) {
-            int a = io.nextInt();
-            int b = io.nextInt();
-            
+        io.println(0);
+        for (long k = 2; k <= n; k++) {
+            long kSqr = k * k;
+            io.println((kSqr * (kSqr - 1) / 2) - 4 * (k - 1) * (k - 2));
         }
+
+        io.close();
     }
 
     static class FastIO extends PrintWriter {

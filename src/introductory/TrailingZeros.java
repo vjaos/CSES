@@ -1,3 +1,5 @@
+package introductory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,27 +8,34 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
-public class BitStrings {
-    static int modulo = 1_000_000_007;
+public class TrailingZeros {
+    /*
+        Количество нулей на конце n! = сколько раз мы можем поделить n! на 10
 
+        Рассмотрим разложение числа n! и 10 на простые множители
+        n! = 1 * 2 * 3 * 4[2 * 2] * 5 ....
+        10 = 2 * 5
+
+        Сколько раз можем поделить = кол-во пар (2,5) в числе n!
+        Делитель 2 встречается чаще чем 5, поэтому будет искать кол-во чисел которые делит степерь 5ки
+
+        Разложение на простые множители
+        5! =  5
+        10! = 1 * 2 * 5
+        11! = 2^8 * 3^4 * 5^2 * 7
+     */
     public static void main(String[] args) throws IOException {
         FastIO io = new FastIO(System.in, System.out);
-        long n = io.nextInt();
+        long n = io.nextLong();
+        long ans = 0;
+        long curr = 5;
 
-        long res = 1;
-        long a = 2;
-        while (n > 0) {
-            if ((n & 1) == 1) {
-                res = res * a;
-                res %= modulo;
-            }
-
-            a *= a;
-            a %= modulo;
-            n >>= 1;
+        while (curr <= n) {
+            ans += n / curr;
+            curr *= 5;
         }
 
-        io.println(res);
+        io.println(ans);
         io.close();
     }
 

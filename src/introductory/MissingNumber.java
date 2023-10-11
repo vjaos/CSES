@@ -1,3 +1,5 @@
+package introductory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,17 +8,16 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
-public class TwoKnights {
+public class MissingNumber {
     public static void main(String[] args) throws IOException {
         FastIO io = new FastIO(System.in, System.out);
-        long n = io.nextInt();
 
-        io.println(0);
-        for (long k = 2; k <= n; k++) {
-            long kSqr = k * k;
-            io.println((kSqr * (kSqr - 1) / 2) - 4 * (k - 1) * (k - 2));
-        }
+        int n = io.nextInt();
+        int xorSum = 0;
+        for (int i = 0; i < n - 1; i++) xorSum ^= io.nextInt();
+        for (int i = 1; i <= n; i++) xorSum ^= i;
 
+        io.println(xorSum);
         io.close();
     }
 

@@ -1,3 +1,5 @@
+package introductory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,24 +8,27 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
-public class IncreasingArray {
+public class BitStrings {
+    static int modulo = 1_000_000_007;
+
     public static void main(String[] args) throws IOException {
         FastIO io = new FastIO(System.in, System.out);
+        long n = io.nextInt();
 
-        int n = io.nextInt();
-        long[] a = new long[n];
-        for (int i = 0; i < n; i++) a[i] = io.nextInt();
-
-        long cnt = 0;
-        for (int i = 1; i < n; i++) {
-            if (a[i - 1] > a[i]) {
-                long diff = a[i - 1] - a[i];
-                a[i] += diff;
-                cnt += diff;
+        long res = 1;
+        long a = 2;
+        while (n > 0) {
+            if ((n & 1) == 1) {
+                res = res * a;
+                res %= modulo;
             }
+
+            a *= a;
+            a %= modulo;
+            n >>= 1;
         }
 
-        io.println(cnt);
+        io.println(res);
         io.close();
     }
 

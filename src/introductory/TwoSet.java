@@ -1,32 +1,65 @@
+package introductory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
-public class Permutations {
+public class TwoSet {
     public static void main(String[] args) throws IOException {
         FastIO io = new FastIO(System.in, System.out);
-        int n = io.nextInt();
 
-        if (2 == n || 3 == n) io.println("NO SOLUTION");
+        long n = io.nextLong();
+        long total = n * (n + 1) / 2;
+
+        if (total % 2 != 0) io.println("NO");
         else {
-            for (int i = 2; i <= n; i += 2) {
-                io.print(i);
-                io.print(" ");
+            io.println("YES");
+            List<Long> first = new ArrayList<>();
+            List<Long> second = new ArrayList<>();
+
+            long l = 1;
+            long r = n % 2 == 0 ? n : n - 1;
+
+            while (l < r) {
+                if (first.size() < second.size()) {
+                    first.add(l);
+                    first.add(r);
+                } else {
+                    second.add(l);
+                    second.add(r);
+                }
+                l++;
+                r--;
             }
 
-            for (int i = 1; i <= n; i += 2) {
-                io.print(i);
+            if (n % 2 != 0) {
+                if (first.size() < second.size()) first.add(n);
+                else second.add(n);
+            }
+
+            io.println(first.size());
+            for (long val : first) {
+                io.print(val);
+                io.print(" ");
+            }
+            io.println();
+
+            io.println(second.size());
+            for (long val : second) {
+                io.print(val);
                 io.print(" ");
             }
         }
 
+
         io.close();
     }
-
 
     static class FastIO extends PrintWriter {
         final BufferedReader br;

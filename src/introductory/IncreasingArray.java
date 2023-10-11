@@ -1,3 +1,5 @@
+package introductory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,25 +8,24 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
-public class Repetitions {
-
+public class IncreasingArray {
     public static void main(String[] args) throws IOException {
         FastIO io = new FastIO(System.in, System.out);
-        String dna = io.next();
 
-        int max = 0;
-        for (int i = 0; i < dna.length(); i++) {
-            int count = 1;
+        int n = io.nextInt();
+        long[] a = new long[n];
+        for (int i = 0; i < n; i++) a[i] = io.nextInt();
 
-            while (i + 1 < dna.length() && dna.charAt(i) == dna.charAt(i + 1)){
-                count++;
-                i++;
+        long cnt = 0;
+        for (int i = 1; i < n; i++) {
+            if (a[i - 1] > a[i]) {
+                long diff = a[i - 1] - a[i];
+                a[i] += diff;
+                cnt += diff;
             }
-
-            max = Math.max(count, max);
         }
 
-        io.println(max);
+        io.println(cnt);
         io.close();
     }
 
@@ -37,7 +38,7 @@ public class Repetitions {
             br = new BufferedReader(new InputStreamReader(in));
         }
 
-        public String next() throws IOException {
+        private String next() throws IOException {
             if (tokenizer == null || !tokenizer.hasMoreTokens()) {
                 tokenizer = new StringTokenizer(br.readLine());
             }
