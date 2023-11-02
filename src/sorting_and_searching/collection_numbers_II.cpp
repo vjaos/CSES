@@ -27,7 +27,7 @@ int main() {
     cin >> a >> b;
     int x1 = x[a];
     int x2 = x[b];
-     
+      
   }
 
   return 0;
