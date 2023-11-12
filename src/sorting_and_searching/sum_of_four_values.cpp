@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
     a[i].second = i + 1;
   }
 
-  std::sort(a.begin(), a.end());
+  sort(a.begin(), a.end());
 
   bool found = k_sum(a, 4, 0, x);
 

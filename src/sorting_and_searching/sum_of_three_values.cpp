@@ -32,9 +32,8 @@ int main(int argc, char *argv[]) {
     while (l < r) {
       ll sum = a[l].first + a[r].first;
       if (sum == t) {
-        std::cout << a[i].second << " " 
-                  << a[l].second << " " 
-                  << a[r].second << std::endl;
+        std::cout << a[i].second << " " << a[l].second << " " << a[r].second
+                  << std::endl;
         return 0;
       } else if (sum < t) {
         l++;
