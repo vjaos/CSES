@@ -1,5 +1,3 @@
-#include <algorithm>
-#include <ios>
 #include <iostream>
 #include <set>
 #include <unordered_map>
@@ -76,7 +74,8 @@ int main(int argc, char *argv[]) {
     range rng = ranges[i];
     int idx = map[rng.b];
 
-    contains[rng.i] = bit1.sum(idx); /* count of ranges such as left_bound <= this.left_bound */
+    // count of ranges such as left_bound <= this.left_bound
+    contains[rng.i] = bit1.sum(idx);
     bit1.add(idx, 1);
   }
 
@@ -89,7 +88,9 @@ int main(int argc, char *argv[]) {
   std::vector<int> contained(n);
   for (const range &x : ranges) {
     int key = map[x.b];
-    contained[x.i] = bit.sum(key, n); /* count of ranges such as this.left_bound >= left_bound */
+
+    // count of ranges such as this.left_bound >= left_bound
+    contained[x.i] = bit.sum(key, n);
     bit.add(key, 1);
   }
 

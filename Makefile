@@ -1,5 +1,5 @@
 CC=clang
-CFLAGS=-Wall -pedantic -lstdc++ -std=c++17
+CFLAGS=-lstdc++ -std=c++17 -Wall -pedantic -W
 
 run:
 	$(CC) $(CFLAGS) $(FILE) -o pg && ./pg
