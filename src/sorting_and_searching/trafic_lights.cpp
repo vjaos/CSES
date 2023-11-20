@@ -1,7 +1,6 @@
 #include <ios>
 #include <iostream>
 #include <set>
-#include <vector>
 
 int main(int argc, char *argv[]) {
   std::ios::sync_with_stdio(false);
