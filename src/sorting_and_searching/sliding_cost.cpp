@@ -8,14 +8,19 @@ using namespace std;
 using ll = long long;
 
 struct sliding_median {
+  ll maxS = 0;
+  ll minS = 0;
+
   multiset<int, greater<int>> maxQ;
   multiset<int, less<int>> minQ;
 
   void add(int x) {
     if (maxQ.empty() || x <= *maxQ.begin()) {
       maxQ.insert(x);
+      maxS += x;
     } else {
       minQ.insert(x);
+      minS += x;
     }
 
     if (maxQ.size() + 1 > minQ.size()) {
@@ -23,7 +28,9 @@ struct sliding_median {
       int val = *it;
 
       maxQ.erase(it);
+      maxS -= val;
       minQ.insert(val);
+      minS += val;
     }
 
     if (minQ.size() > maxQ.size()) {
@@ -31,19 +38,28 @@ struct sliding_median {
       int val = *it;
 
       minQ.erase(it);
+      minS -= val;
       maxQ.insert(val);
+      maxS += val;
     }
   }
 
   void remove(int x) {
     if (x <= *maxQ.begin()) {
+      maxS -= x;
       maxQ.extract(x);
     } else {
+      minS -= x;
       minQ.extract(x);
     }
   }
 
-  int median() { return *maxQ.begin(); }
+  ll cost() {
+    ll size = static_cast<ll>(maxQ.size() + minQ.size());
+    ll m = size % 2 == 0 ? 0 : *maxQ.begin();
+
+    return minS - maxS + m;
+  }
 };
 
 int main() {
@@ -67,8 +83,9 @@ int main() {
     md.add(x[r]);
 
     if (r - l + 1 == k) {
-      ll m = md.median();
+      ll d = md.cost();
 
+      cout << d << " ";
       md.remove(x[l]);
       l++;
     }
