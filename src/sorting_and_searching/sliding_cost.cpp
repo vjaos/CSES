@@ -8,8 +8,8 @@ using namespace std;
 using ll = long long;
 
 struct sliding_median {
-  ll maxS = 0;
-  ll minS = 0;
+  ll lower_sum = 0;
+  ll upper_sum = 0;
 
   multiset<int, greater<int>> maxQ;
   multiset<int, less<int>> minQ;
@@ -17,10 +17,10 @@ struct sliding_median {
   void add(int x) {
     if (maxQ.empty() || x <= *maxQ.begin()) {
       maxQ.insert(x);
-      maxS += x;
+      lower_sum += x;
     } else {
       minQ.insert(x);
-      minS += x;
+      upper_sum += x;
     }
 
     if (maxQ.size() + 1 > minQ.size()) {
@@ -28,9 +28,9 @@ struct sliding_median {
       int val = *it;
 
       maxQ.erase(it);
-      maxS -= val;
+      lower_sum -= val;
       minQ.insert(val);
-      minS += val;
+      upper_sum += val;
     }
 
     if (minQ.size() > maxQ.size()) {
@@ -38,18 +38,18 @@ struct sliding_median {
       int val = *it;
 
       minQ.erase(it);
-      minS -= val;
+      upper_sum -= val;
       maxQ.insert(val);
-      maxS += val;
+      lower_sum += val;
     }
   }
 
   void remove(int x) {
     if (x <= *maxQ.begin()) {
-      maxS -= x;
+      lower_sum -= x;
       maxQ.extract(x);
     } else {
-      minS -= x;
+      upper_sum -= x;
       minQ.extract(x);
     }
   }
@@ -58,7 +58,7 @@ struct sliding_median {
     ll size = static_cast<ll>(maxQ.size() + minQ.size());
     ll m = size % 2 == 0 ? 0 : *maxQ.begin();
 
-    return minS - maxS + m;
+    return upper_sum - lower_sum + m;
   }
 };
 
